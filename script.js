@@ -17,6 +17,7 @@ fetch("./texts.json")
   .then((data) => {
     questionText = data[Math.floor(Math.random() * data.length)];
     question.innerHTML = questionText;
+    // console.log(questionText);
   });
 
 // checks the user typed character and displays accordingly
@@ -26,7 +27,7 @@ const typeController = (e) => {
   // Handle backspace press
   if (newLetter == "Backspace") {
     userText = userText.slice(0, userText.length - 1);
-    return display.removeChild(display.lastChild);
+    // return display.removeChild(display.lastChild);
   }
 
   // these are the valid character we are allowing to type
@@ -35,31 +36,38 @@ const typeController = (e) => {
 
   // if it is not a valid character like Control/Alt then skip displaying anything
   if (!validLetters.includes(newLetter)) {
+    // console.log(newLetter);
+    
     return;
   }
 
   userText += newLetter;
-
+// console.log(userText);
   const newLetterCorrect = validate(newLetter);
 
   if (newLetterCorrect) {
     display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
+   
   } else {
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
+    
   }
 
   // check if given question text is equal to user typed text
   if (questionText === userText) {
     gameOver();
+    // console.log('fd');
   }
 };
 
 const validate = (key) => {
+  // console.log(key);
   if (key === questionText[userText.length - 1]) {
     return true;
   }
   return false;
 };
+
 
 // FINISHED TYPING
 const gameOver = () => {
@@ -84,9 +92,9 @@ const gameOver = () => {
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
     <button onclick="closeModal()">Close</button>
   `;
-
+console.log(errorCount);
   addHistory(questionText, timeTaken, errorCount);
-
+  // console.log(errorCount);
   // restart everything
   startTime = null;
   errorCount = 0;
