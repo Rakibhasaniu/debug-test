@@ -1,5 +1,5 @@
 const histories = document.getElementById("histories");
-console.log(histories);
+
 
 function addHistory(questionText, timeTaken, errorCount) {
   
