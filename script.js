@@ -27,7 +27,7 @@ const typeController = (e) => {
   // Handle backspace press
   if (newLetter == "Backspace") {
     userText = userText.slice(0, userText.length - 1);
-    // return display.removeChild(display.lastChild);
+    return display.removeChild(display.lastChild);
   }
 
   // these are the valid character we are allowing to type
@@ -46,7 +46,7 @@ const typeController = (e) => {
   const newLetterCorrect = validate(newLetter);
 
   if (newLetterCorrect) {
-    display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
+    display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`
    
   } else {
     display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
@@ -78,7 +78,7 @@ const gameOver = () => {
   // the current time is the finish time
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
-  let timeTaken = (finishTime - startTime) / 1000;
+  let timeTaken =parseInt ((finishTime - startTime) / 1000);
   // let second = timeTaken.getSeconds();
 
   // show result modal
@@ -96,7 +96,7 @@ const gameOver = () => {
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
     <button onclick="closeModal()">Close</button>
   `;
-console.log(errorCount);
+// console.log(errorCount);
   addHistory(questionText, timeTaken, errorCount);
   // console.log(errorCount);
   // restart everything
@@ -114,8 +114,8 @@ const closeModal = () => {
 
 
 // START Countdown
-startBtn.addEventListener('click', function(){
-  console.log('btn');
+
+ 
   const start = () => {
     // If already started, do not start again
     if (startTime) return;
@@ -139,11 +139,9 @@ startBtn.addEventListener('click', function(){
       count--;
     }, 1000);
   };
-  start();
-});
-// startBtn.addEventListener('click', function(){
+  
 
-// });
+startBtn.addEventListener('click', start );
 
 // If history exists, show it
 displayHistory();
@@ -151,7 +149,7 @@ displayHistory();
 // Show typing time spent
 setInterval(() => {
   const currentTime = new Date().getTime();
-  const timeSpent = (currentTime - startTime) / 1000;
+  const timeSpent = parseInt((currentTime - startTime) / 1000);
 
 
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} second`;
